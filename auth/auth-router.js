@@ -12,12 +12,11 @@ router.post(
     user.password = bcrypt.hashSync(user.password, 10);
     req.user = await db.addUser(user);
     next();
-    //res.status(201).json({ ...saved, password: "••••••••••" });
   }),
-  catchAsync(async (req, res) => {
+  function loginAfterRegistration(req, res) {
     req.session.user = req.user;
     res.status(201).json({ ...req.user, password: "••••••••••" });
-  })
+  }
 );
 
 router.post(
@@ -39,7 +38,7 @@ router.get(
   "/logout",
   catchAsync(async (req, res, next) => {
     if (req.session.user) {
-      res.clearCookie("node-auth1-session");
+      res.clearCookie("sprint-challenge-authentication-session");
       req.session.destroy(err =>
         err ? next(err) : res.status(200).json({ message: "Logged out" })
       );
