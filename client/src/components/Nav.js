@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 export default function Nav({ isLoggedIn }) {
   return (
     <nav>
-      <NavLink to='/jokes'>Jokes</NavLink>
+      {isLoggedIn && <NavLink to='/jokes'>Jokes</NavLink>}
       {isLoggedIn ? (
         <NavLink to='/logout'>Log Out</NavLink>
       ) : (<>

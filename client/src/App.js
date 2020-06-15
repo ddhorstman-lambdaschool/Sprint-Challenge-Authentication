@@ -17,20 +17,22 @@ export default function App() {
       <Route
         exact
         path='/login'
-        render={p => <Login {...p} mode='login' setLoginState={setLoginState} />}
+        render={p => (
+          <Login {...p} mode='login' setLoginState={setLoginState} />
+        )}
       />
-            <Route
+      <Route
         exact
         path='/register'
-        render={p => <Login {...p} mode='register' setLoginState={setLoginState} />}
+        render={p => (
+          <Login {...p} mode='register' setLoginState={setLoginState} />
+        )}
       />
       <Route exact path='/jokes' component={JokeList} />
       <Route
         exact
         path='/logout'
-        render={p => (
-          <Logout {...p} setLoginState={setLoginState} />
-        )}
+        render={p => <Logout {...p} setLoginState={setLoginState} />}
       />
     </Router>
   );
