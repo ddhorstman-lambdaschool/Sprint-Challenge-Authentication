@@ -3,6 +3,9 @@ const server = require("./server");
 const knex = require("../database/dbConfig");
 
 describe("server", () => {
+  //IMPORTANT!
+  //This cookie will be set while testing /auth/login
+  //and then sent while testing /jokes
   let cookie;
   beforeAll(async () => {
     await knex("users").truncate();
@@ -56,6 +59,21 @@ describe("server", () => {
     });
   });
   describe("jokes-router", () => {
-    
+    const bU = "/api/jokes";
+    it("Returns an error to users who aren't logged in", () =>
+      request(server)
+        .get(`${bU}/`)
+        .expect(401)
+        .then(res => expect(res.body.you).toBe("shall not pass!")));
+    it("Returns an array of jokes to logged-in users", () =>
+      request(server)
+        .get(`${bU}/`)
+        .set("Cookie", cookie)
+        .expect(200)
+        .then(({ body }) => {
+          expect(Array.isArray(body));
+          expect(body[0].id).toBeDefined();
+          expect(body[0].joke).toBeDefined();
+        }));
   });
 });
