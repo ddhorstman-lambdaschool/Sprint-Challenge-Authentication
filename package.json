@@ -4,7 +4,7 @@
   "description": "Authentication Sprint Challenge",
   "main": "index.js",
   "scripts": {
-    "server": "nodemon index.js",
+    "server": "nodemon --ignore ./client --exec node index.js",
     "start": "node index.js",
     "test": "NODE_ENV=testing jest --watch"
   },
