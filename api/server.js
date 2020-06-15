@@ -9,7 +9,7 @@ const knexSessionStore = require("connect-session-knex")(session);
 const sessionDuration = 1000 * 60 * 60 * 24;
 
 const sessionConfig = {
-  name: "node-auth1-session",
+  name: "sprint-challenge-authentication-session",
   secret: secrets.SESSION_SECRET,
   cookie: {
     maxAge: sessionDuration,
