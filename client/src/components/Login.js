@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 
 export default class Login extends React.Component {
-  state = { username: "", password: "", sender: "login" };
+  state = { username: "", password: "", sender: "login", errorText: "" };
   handleChange = ({ target: { name, value } }) => {
     this.setState({ [name]: value });
   };
@@ -10,15 +10,21 @@ export default class Login extends React.Component {
     this.setState({ sender: name });
   };
   handleSubmit = e => {
-    console.log(this.props);
     e.preventDefault();
-    const { sender, ...body } = this.state;
+    const { username, password, sender } = this.state;
     axios
-      .post(`http://localhost:5000/api/auth/${sender}`, body, {
-        withCredentials: true,
-      })
+      .post(
+        `http://localhost:5000/api/auth/${sender}`,
+        { username, password },
+        {
+          withCredentials: true,
+        }
+      )
       .then(() => this.props.setLoginState(true))
-      .then(() => this.props.history.push("/jokes"));
+      .then(() => this.props.history.push("/jokes"))
+      .catch(e => {
+        this.setState({ errorText: e.response.data.message });
+      });
   };
   render() {
     return (
@@ -35,7 +41,7 @@ export default class Login extends React.Component {
           value={this.state.password}
           onChange={this.handleChange}
         />
-        {this.props.mode==="login" ? (
+        {this.props.mode === "login" ? (
           <button name='login' type='submit' onClick={this.setSender}>
             Log In
           </button>
@@ -43,6 +49,9 @@ export default class Login extends React.Component {
           <button name='register' type='submit' onClick={this.setSender}>
             Sign Up
           </button>
+        )}
+        {this.state.errorText && (
+          <div className='errorText'>{this.state.errorText}</div>
         )}
       </form>
     );

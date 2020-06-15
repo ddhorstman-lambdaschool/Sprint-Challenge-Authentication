@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import "./App.scss";
 import JokeList from "./components/JokeList";
 import Login from "./components/Login";
@@ -13,7 +13,7 @@ export default function App() {
   return (
     <Router>
       <Nav isLoggedIn={isLoggedIn} />
-      <Route exact path='/' />
+      <Route exact path='/' render={() => <Redirect to='/login' />} />
       <Route
         exact
         path='/login'

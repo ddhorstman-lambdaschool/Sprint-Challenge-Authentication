@@ -1,6 +1,12 @@
 nav a {
-  padding:5px;
+  padding: 5px;
   &.active {
     background-color: grey;
   }
+}
+.errorText {
+  &::before {
+    content: "Error: ";
+  }
+  color: red;
 }
