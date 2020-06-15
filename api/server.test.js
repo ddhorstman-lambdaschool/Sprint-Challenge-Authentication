@@ -64,7 +64,7 @@ describe("server", () => {
       request(server)
         .get(`${bU}/`)
         .expect(401)
-        .then(res => expect(res.body.you).toBe("shall not pass!")));
+        .then(res => expect(res.body.message).toContain("logged in")));
     it("Returns an array of jokes to logged-in users", () =>
       request(server)
         .get(`${bU}/`)
