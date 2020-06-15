@@ -7,11 +7,16 @@ router.post(
   "/register",
   validateUserObject,
   validateUserDoesNotExist,
-  catchAsync(async (req, res) => {
+  catchAsync(async (req, res, next) => {
     const user = req.body;
     user.password = bcrypt.hashSync(user.password, 10);
-    const saved = await db.addUser(user);
-    res.status(201).json({ ...saved, password: "••••••••••" });
+    req.user = await db.addUser(user);
+    next();
+    //res.status(201).json({ ...saved, password: "••••••••••" });
+  }),
+  catchAsync(async (req, res) => {
+    req.session.user = req.user;
+    res.status(201).json({ ...req.user, password: "••••••••••" });
   })
 );
 
