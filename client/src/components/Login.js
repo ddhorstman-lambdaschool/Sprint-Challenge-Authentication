@@ -10,13 +10,15 @@ export default class Login extends React.Component {
     this.setState({ sender: name });
   };
   handleSubmit = e => {
+    console.log(this.props);
     e.preventDefault();
     const { sender, ...body } = this.state;
     axios
       .post(`http://localhost:5000/api/auth/${sender}`, body, {
         withCredentials: true,
       })
-      .then(console.log);
+      .then(() => this.props.setLoginState(true))
+      .then(() => this.props.history.push("/jokes"));
   };
   render() {
     return (
@@ -33,12 +35,15 @@ export default class Login extends React.Component {
           value={this.state.password}
           onChange={this.handleChange}
         />
-        <button name='login' type='submit' onClick={this.setSender}>
-          Log In
-        </button>
-        <button name='register' type='submit' onClick={this.setSender}>
-          Register
-        </button>
+        {this.props.mode==="login" ? (
+          <button name='login' type='submit' onClick={this.setSender}>
+            Log In
+          </button>
+        ) : (
+          <button name='register' type='submit' onClick={this.setSender}>
+            Sign Up
+          </button>
+        )}
       </form>
     );
   }
