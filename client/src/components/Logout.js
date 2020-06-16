@@ -14,7 +14,7 @@ export default function Logout({ setLoginState }) {
           .then(() => setLoginState(false))
           .then(() => history.push("/login"));
       })(),
-    []
+    [history, setLoginState]
   );
   return <div />;
 }
