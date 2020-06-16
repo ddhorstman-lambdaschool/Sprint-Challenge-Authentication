@@ -37,9 +37,9 @@ const { custom404, errorHandling } = require("../config/errors");
 const server = express();
 
 server.use(helmet());
+server.use(session(sessionConfig));
 server.use(cors({ origin: true, credentials: true}));
 server.use(express.json());
-server.use(session(sessionConfig));
 
 server.use('/api/auth', authRouter);
 server.use('/api/jokes', authenticate, jokesRouter);
