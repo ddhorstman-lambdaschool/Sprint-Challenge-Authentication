@@ -2,6 +2,7 @@ const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 const { catchAsync } = require("../config/errors");
 const db = require("../database/userModel");
+const config = require("../config/serverInfo");
 
 router.post(
   "/register",
@@ -38,7 +39,7 @@ router.get(
   "/logout",
   catchAsync(async (req, res, next) => {
     if (req.session.user) {
-      res.clearCookie("sprint-challenge-authentication-session");
+      res.clearCookie(config.COOKIE_NAME);
       req.session.destroy(err =>
         err ? next(err) : res.status(200).json({ message: "Logged out" })
       );

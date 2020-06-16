@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
-const secrets = require('../config/secrets');
+const config = require("../config/serverInfo");
 
 const session = require("express-session");
 const knexSessionStore = require("connect-session-knex")(session);
@@ -9,8 +9,8 @@ const knexSessionStore = require("connect-session-knex")(session);
 const sessionDuration = 1000 * 60 * 60 * 24;
 
 const sessionConfig = {
-  name: "sprint-challenge-authentication-session",
-  secret: secrets.SESSION_SECRET,
+  name: config.COOKIE_NAME,
+  secret: config.SESSION_SECRET,
   cookie: {
     maxAge: sessionDuration,
     secure: process.env.NODE_ENV === "production",
