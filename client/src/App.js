@@ -13,7 +13,11 @@ export default function App() {
   return (
     <Router>
       <Nav isLoggedIn={isLoggedIn} />
-      <Route exact path='/' render={() => <Redirect to='/login' />} />
+      <Route
+        exact
+        path='/'
+        render={() => <Redirect to={isLoggedIn ? "/jokes" : "/login"} />}
+      />
       <Route
         exact
         path='/login'
