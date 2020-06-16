@@ -23,7 +23,7 @@ export default class Login extends React.Component {
       .then(() => this.props.setLoginState(true))
       .then(() => this.props.history.push("/jokes"))
       .catch(e => {
-        this.setState({ errorText: e.response.data.message });
+        this.setState({ errorText: e.response?.data.message });
       });
   };
   render() {

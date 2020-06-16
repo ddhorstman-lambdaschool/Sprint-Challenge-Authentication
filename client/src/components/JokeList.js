@@ -8,7 +8,7 @@ export default function JokeList(props) {
     axios
       .get("http://localhost:5000/api/jokes", { withCredentials: true })
       .then(r => setJokes(r.data))
-      .catch(e => setJokes([{ id: 0, joke: e.response.data.message }]));
+      .catch(e => setJokes([{ id: 0, joke: e.response?.data.message }]));
   }
 
   return (
