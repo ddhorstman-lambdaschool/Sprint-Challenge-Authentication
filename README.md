@@ -40,11 +40,19 @@ Demonstrate your understanding of this week's concepts by answering the followin
 
 - [ ] What is the purpose of using _sessions_?
 
+>Sessions allow you to store information about an active login on the backend. Typically, you'd then send the session ID to the frontend in the form of a cookie, where it can be stored and sent to the server with subsequent requests to tie those requests to the user information stored in the session.
+
 - [ ] What does bcrypt do to help us store passwords in a secure manner.
+
+>`bcrypt` hashes those passwords, encoding them in an irreversible manner. We can then validate any future password submissions by hashing them using the same algorithm and comparing the results.
 
 - [ ] What does bcrypt do to slow down attackers?
 
+>In addition to hashing the passwords irreversibly, `bcrypt` also hashes the hash multiple times, making it even more difficult to determine what the original password may have been.
+
 - [ ] What are the three parts of the JSON Web Token?
+
+>A JWT contains a header describing the encryption algorithm, a body containing any amount of arbitrary data, and a signature. The signature is based on the stored data and a secret stored on the server, making the JWT tamper-evident.
 
 ## Minimum Viable Product
 
